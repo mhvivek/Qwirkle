@@ -1,3 +1,6 @@
+from shape import Shape
+from color import Color
+from tile import Tile
 
 class Board:
     def __init__(self):
@@ -21,3 +24,24 @@ class Board:
             x, y = coordinates.split(" ")
             possible_plays.remove((int(x), int(y)))
         print(possible_plays)
+        return possible_plays
+
+    def find_similar_tiles(self, tile):
+        similar_tiles = []
+        tile_color = tile.color
+        tile_shape = tile.shape
+        for shape in Shape:
+            if shape != tile_shape:
+                tile1 = Tile(shape, tile_color)
+                similar_tiles.append(tile1)
+
+        for color in Color:
+            if color != tile_color:
+                tile1 = Tile(tile_shape, color)
+                similar_tiles.append(tile1)
+        print(*similar_tiles, sep='\n')
+        return similar_tiles
+
+
+
+

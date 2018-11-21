@@ -11,5 +11,7 @@ def test_draw():
     hand1.add_tiles(new_tiles)
     print(*hand1.hand, sep='\n')
     assert len(hand1.hand) == 6
+    hand1.find_combinations()
+
 
 
