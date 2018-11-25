@@ -32,15 +32,28 @@ from tile import *
 #     similar_tiles_test = board1.find_similar_tiles(tile)
 #     assert len(similar_tiles_test) == 10
 
-def test_find_legal_plays():
+# def test_find_legal_plays():
+#     board1 = Board()
+#     tile1 = Tile(Shape.SUN, Color.BLUE)
+#     tile2 = Tile(Shape.STAR, Color.BLUE)
+#     tile3 = Tile(Shape.SQUARE, Color.BLUE)
+#     tile4 = Tile(Shape.DIAMOND, Color.BLUE)
+#     tiles = {"0 0": tile1, "0 1": tile3, "1 0": tile2}
+#     board1.add_to_board(tiles)
+#     board1.find_spots()
+#     board1.find_legal_plays()
+
+def test_find_legal_plays2():
     board1 = Board()
     tile1 = Tile(Shape.SUN, Color.BLUE)
-    tile2 = Tile(Shape.SUN, Color.GREEN)
+    tile2 = Tile(Shape.SUN, Color.ORANGE)
     tile3 = Tile(Shape.SQUARE, Color.BLUE)
-    tiles = {"0 0": tile1, "0 1": tile3}
+    tile4 = Tile(Shape.SQUARE, Color.ORANGE)
+    tiles = {"0 0": tile1, "0 1": tile3, "1 0": tile2, "1 -1": tile4}
     board1.add_to_board(tiles)
     board1.find_spots()
     board1.find_legal_plays()
+
 
 
 
