@@ -8,3 +8,9 @@ def test_tile():
     assert tile1.shape == "circle"
     assert tile1.color == "purple"
 
+def test_tile_equality():
+    tile1 = Tile(Shape.CLOVER, Color.ORANGE)
+    tile2 = Tile(Shape.CLOVER, Color.ORANGE)
+    print(hash(tile1))
+    print(hash(tile2))
+    assert tile1 == tile2

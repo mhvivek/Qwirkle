@@ -52,7 +52,9 @@ def test_find_legal_plays2():
     tiles = {"0 0": tile1, "0 1": tile3, "1 0": tile2, "1 -1": tile4}
     board1.add_to_board(tiles)
     board1.find_spots()
-    board1.find_legal_plays()
+    plays = board1.find_legal_plays()
+    assert plays[(1, 1)] == set()
+    assert plays[(1, -2)] == {Tile(Shape.DIAMOND, Color.ORANGE), Tile(Shape.STAR, Color.ORANGE), Tile(Shape.CIRCLE, Color.ORANGE), Tile(Shape.CLOVER, Color.ORANGE)}
 
 
 

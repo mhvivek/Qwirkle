@@ -50,7 +50,7 @@ class Board:
             x = spot[0]
             y = spot[1]
             num = 1
-            plays_shortlist = []
+            plays_shortlist = set()
             if_statement_execution = False
             print("I'm at " + str(x) + ' ' + str(y))
             if str(x) + " " + str(y + 1) in self.tiles_on_board:
@@ -60,20 +60,20 @@ class Board:
                     possible_tiles = self.find_similar_tiles(self.tiles_on_board[str(x) + " " + str(y + 1)])
 
                 while str(x) + " " + str(y + num) in self.tiles_on_board:
-                    plays_shortlist = []
+                    plays_shortlist = set()
                     print("Possible Tiles: " + str(possible_tiles))
                     print("Num " + str(num))
                     if self.tiles_on_board[str(x) + " " + str(y + num)].color == tile.color:
                         for tiles in possible_tiles:
                             if tiles.color == tile.color and tiles.shape != self.tiles_on_board[str(x) + " " + str(y + num)].shape:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
 
 
                     if self.tiles_on_board[str(x) + " " + str(y + num)].shape == tile.shape:
                         for tiles in possible_tiles:
                             if tiles.shape == tile.shape and tiles.color != self.tiles_on_board[str(x) + " " + str(y + num)].color:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
@@ -91,17 +91,17 @@ class Board:
                 while str(x + num) + " " + str(y) in self.tiles_on_board:
                     print("Possible Tiles: " + str(possible_tiles))
                     print("Num " + str(num))
-                    plays_shortlist = []
+                    plays_shortlist = set()
                     if self.tiles_on_board[str(x + num) + " " + str(y)].color == tile.color:
                         for tiles in possible_tiles:
                             if tiles.color == tile.color and tiles.shape != self.tiles_on_board[str(x + num) + " " + str(y)].shape:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
 
                     if self.tiles_on_board[str(x + num) + " " + str(y)].shape == tile.shape:
                         for tiles in possible_tiles:
                             if tiles.shape == tile.shape and tiles.color != self.tiles_on_board[str(x + num) + " " + str(y)].color:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
@@ -118,17 +118,17 @@ class Board:
                 while str(x) + " " + str(y - num) in self.tiles_on_board:
                     print("Possible Tiles: " + str(possible_tiles))
                     print("Num " + str(num))
-                    plays_shortlist = []
+                    plays_shortlist = set()
                     if self.tiles_on_board[str(x) + " " + str(y - num)].color == tile.color:
                         for tiles in possible_tiles:
                             if tiles.color == tile.color and tiles.shape != self.tiles_on_board[str(x) + " " + str(y - num)].shape:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
 
                     if self.tiles_on_board[str(x) + " " + str(y - num)].shape == tile.shape:
                         for tiles in possible_tiles:
                             if tiles.shape == tile.shape and tiles.color != self.tiles_on_board[str(x) + " " + str(y - num)].color:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
@@ -137,7 +137,7 @@ class Board:
                 if_statement_execution = True
 
             if str(x - 1) + " " + str(y) in self.tiles_on_board:
-                num =  1
+                num = 1
                 tile = self.tiles_on_board[str(x - 1) + " " + str(y)]
                 if if_statement_execution == False:
                     possible_tiles = self.find_similar_tiles(self.tiles_on_board[str(x - 1) + " " + str(y)])
@@ -145,23 +145,27 @@ class Board:
                 while str(x - num) + " " + str(y) in self.tiles_on_board:
                     print(*possible_tiles, sep='\n')
                     print("Num " + str(num))
-                    plays_shortlist = []
+                    plays_shortlist = set()
                     if self.tiles_on_board[str(x - num) + " " + str(y)].color == tile.color:
                         for tiles in possible_tiles:
                             if tiles.color == tile.color and tiles.shape != self.tiles_on_board[str(x - num) + " " + str(y)].shape:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
 
                     if self.tiles_on_board[str(x - num) + " " + str(y)].shape == tile.shape:
                         for tiles in possible_tiles:
                             if tiles.shape == tile.shape and tiles.color != self.tiles_on_board[str(x - num) + " " + str(y)].color:
-                                plays_shortlist.append(tiles)
+                                plays_shortlist.add(tiles)
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
                 print("\n")
                 print(*plays_shortlist, sep='\n')
                 if_statement_execution = True
+
+            plays_dict[spot] = plays_shortlist
+            print(plays_dict)
+        return plays_dict
 
 
 
