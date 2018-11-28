@@ -2,23 +2,29 @@ from color import Color
 from shape import Shape
 
 class Hand:
-    hand = []
-    reds = []
-    yellows = []
-    greens = []
-    purples = []
-    oranges = []
-    blues = []
-    circles = []
-    squares = []
-    diamonds = []
-    clovers = []
-    stars = []
-    suns = []
+    def __init__(self):
+        self.hand = []
+        self.reds = []
+        self.yellows = []
+        self.greens = []
+        self.purples = []
+        self.oranges = []
+        self.blues = []
+        self.circles = []
+        self.squares = []
+        self.diamonds = []
+        self.clovers = []
+        self.stars = []
+        self.suns = []
+
 
     def add_tiles(self, tiles):
         hand = self.hand.extend(tiles)
         return hand
+
+    def convert_hand_to_set(self):
+        return set(self.hand)
+
     def find_combinations(self):
         for tile in self.hand:
             if tile.color == Color.RED:

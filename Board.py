@@ -112,7 +112,7 @@ class Board:
             if str(x) + " " + str(y - 1) in self.tiles_on_board:
                 num = 1
                 tile = self.tiles_on_board[str(x) + " " + str(y - 1)]
-                if if_statement_execution == False:
+                if not if_statement_execution:
                     possible_tiles = self.find_similar_tiles(self.tiles_on_board[str(x) + " " + str(y - 1)])
 
                 while str(x) + " " + str(y - num) in self.tiles_on_board:
@@ -167,12 +167,11 @@ class Board:
             print(plays_dict)
         return plays_dict
 
+    def find_plays_from_hand(self, all_plays, in_hand):
+        plays_from_hand = {}
+        for coordinates, legal_tiles in all_plays.items():
+            if set.intersection(legal_tiles, in_hand):
+                plays_from_hand[coordinates] = set.intersection(legal_tiles, in_hand)
 
-
-
-
-
-
-
-
-
+        print(plays_from_hand)
+        return plays_from_hand
