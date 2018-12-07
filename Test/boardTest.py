@@ -80,6 +80,7 @@ from hand import *
 #     assert plays_hand[(0, -1)] == {Tile(Shape.DIAMOND, Color.BLUE)}
 
 def test_multiple_tile_play():
+    print("$$$$$$$$$$$$$$\n")
     board1 = Board()
     tile1 = Tile(Shape.CLOVER, Color.BLUE)
     tile2 = Tile(Shape.CIRCLE, Color.BLUE)
@@ -92,3 +93,4 @@ def test_multiple_tile_play():
     plays = board1.find_legal_plays()
     plays_hand = board1.find_plays_from_hand(plays, hand)
     board1.multiple_tile_plays(plays_hand, tiles, hand)
+    print("**********")

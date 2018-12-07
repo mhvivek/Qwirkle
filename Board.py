@@ -200,27 +200,28 @@ class Board:
                 mock_board[coordinates] = tile
                 list_of_play_dictionaries.append({coordinates: tile})
                 num = 0
+                executed = True
                 while (x, y + num) in mock_board:
                     legal_plays = self.find_legal_plays_any_board(mock_board)
                     plays_dictionary = self.find_plays_from_hand(legal_plays, in_hand)
 
-                    #if (x, y + num + 1) not in mock_board:
+                    if (x, y + num + 1) not in mock_board:
 
-                    if (x, y + num + 1) in plays_dictionary:
-                        tiles_in_dict = plays_dictionary[(x, y + num + 1)]
+                        if (x, y + num + 1) in plays_dictionary:
+                            tiles_for_place = plays_dictionary[(x, y + num + 1)]
 
-                        for tile1 in tiles_in_dict:
-                            mock_board[(x, y + num + 1)] = tile1
+                            for tile1 in tiles_for_place:
+                                mock_board[(x, y + num + 1)] = tile1
 
-                            if num == 0:
-                                dict1 = {coordinates: tile, (x, y + 1 + num): tile1}
-                                list_of_play_dictionaries.append(dict1)
-
-                            else:
-                                dict2 = dict1.copy()
-                                dict2[(x, y + num + 1)] = tile1
-                                list_of_play_dictionaries.append(dict2)
-                                dict1 = dict2.copy()
+                                if executed == True:
+                                    dict1 = {coordinates: tile, (x, y + 1 + num): tile1}
+                                    list_of_play_dictionaries.append({coordinates: tile, (x, y + 1 + num): tile1})
+                                    executed = False
+                                else:
+                                    dict2 = dict1.copy()
+                                    dict2[(x, y + num + 1)] = tile1
+                                    list_of_play_dictionaries.append(dict2)
+                                    dict1 = dict2.copy()
 
                     num += 1
                 #del mock_board[(x, y + num - 1)]
@@ -228,27 +229,28 @@ class Board:
 
                 mock_board = tiles_on_board.copy()
                 mock_board[coordinates] = tile
-
+                executed = True
                 while (x + num, y) in mock_board:
                     legal_plays = self.find_legal_plays_any_board(mock_board)
                     plays_dictionary = self.find_plays_from_hand(legal_plays, in_hand)
 
-                    #if (x + num + 1) not in mock_board:
+                    if (x + num + 1) not in mock_board:
 
-                    if (x + num + 1, y) in plays_dictionary:
-                        tiles_in_dict = plays_dictionary[(x + num + 1, y)]
-                        for tile1 in tiles_in_dict:
-                            mock_board[(x + num + 1, y)] = tile1
+                        if (x + num + 1, y) in plays_dictionary:
+                            tiles_in_dict = plays_dictionary[(x + num + 1, y)]
+                            for tile1 in tiles_in_dict:
+                                mock_board[(x + num + 1, y)] = tile1
 
-                            if num == 0:
-                                dict1 = {coordinates:tile, (x + num + 1, y): tile1}
-                                list_of_play_dictionaries.append(dict1)
+                                if executed == True:
+                                    dict1 = {coordinates:tile, (x + num + 1, y): tile1}
+                                    list_of_play_dictionaries.append(dict1)
+                                    executed = False
 
-                            else:
-                                dict2 = dict1.copy()
-                                dict2[(x + num + 1, y)] = tile1
-                                list_of_play_dictionaries.append(dict2)
-                                dict1 = dict2.copy()
+                                else:
+                                    dict2 = dict1.copy()
+                                    dict2[(x + num + 1, y)] = tile1
+                                    list_of_play_dictionaries.append(dict2)
+                                    dict1 = dict2.copy()
 
                     num += 1
                 #del mock_board[(x + num - 1, y)]
@@ -256,27 +258,28 @@ class Board:
 
                 mock_board = tiles_on_board.copy()
                 mock_board[coordinates] = tile
-
+                executed = True
                 while (x, y - num) in mock_board:
                     legal_plays = self.find_legal_plays_any_board(mock_board)
                     plays_dictionary = self.find_plays_from_hand(legal_plays, in_hand)
 
-                    #if (x, y - num - 1) not in mock_board:
+                    if (x, y - num - 1) not in mock_board:
 
-                    if (x, y - num - 1) in plays_dictionary:
-                        tiles_in_dict = plays_dictionary[(x, y - num - 1)]
-                        for tile1 in tiles_in_dict:
-                            mock_board[(x, y - num - 1)] = tile1
+                        if (x, y - num - 1) in plays_dictionary:
+                            tiles_in_dict = plays_dictionary[(x, y - num - 1)]
+                            for tile1 in tiles_in_dict:
+                                mock_board[(x, y - num - 1)] = tile1
 
-                            if num == 0:
-                                dict1 = {coordinates:tile, (x, y - 1 - num):tile1}
-                                list_of_play_dictionaries.append(dict1)
+                                if executed == True:
+                                    dict1 = {coordinates:tile, (x, y - 1 - num):tile1}
+                                    list_of_play_dictionaries.append(dict1)
+                                    executed = False
 
-                            else:
-                                dict2 = dict1.copy()
-                                dict2[(x, y - num - 1)] = tile1
-                                list_of_play_dictionaries.append(dict2)
-                                dict1 = dict2.copy()
+                                else:
+                                    dict2 = dict1.copy()
+                                    dict2[(x, y - num - 1)] = tile1
+                                    list_of_play_dictionaries.append(dict2)
+                                    dict1 = dict2.copy()
 
                     num +=1
                 #del mock_board[(x, y - num + 1)]
@@ -284,29 +287,31 @@ class Board:
 
                 mock_board = tiles_on_board.copy()
                 mock_board[coordinates] = tile
-
+                executed = True
                 while (x - num, y) in mock_board:
                     legal_plays = self.find_legal_plays_any_board(mock_board)
                     plays_dictionary = self.find_plays_from_hand(legal_plays, in_hand)
 
-                    #if (x - num - 1, y) not in mock_board:
+                    if (x - num - 1, y) not in mock_board:
 
-                    if (x - num - 1, y) in plays_dictionary:
-                        tiles_in_dict = plays_dictionary[(x - num - 1, y)]
-                        for tile1 in tiles_in_dict:
-                            mock_board[(x - num - 1, y)] = tile1
+                        if (x - num - 1, y) in plays_dictionary:
+                            tiles_in_dict = plays_dictionary[(x - num - 1, y)]
+                            for tile1 in tiles_in_dict:
+                                mock_board[(x - num - 1, y)] = tile1
 
-                            if num == 0:
-                                dict1 = {coordinates:tile, (x - num - 1, y):tile1}
-                                list_of_play_dictionaries.append(dict1)
+                                if executed == True:
+                                    dict1 = {coordinates:tile, (x - 1 - num, y):tile1}
+                                    list_of_play_dictionaries.append(dict1)
+                                    executed = False
 
-                            else:
-                                dict2 = dict1.copy()
-                                dict2[(x - num - 1, y)] = tile1
-                                list_of_play_dictionaries.append(dict2)
-                                dict1 = dict2.copy()
+                                else:
+                                    dict2 = dict1.copy()
+                                    dict2[(x - num - 1, y)] = tile1
+                                    list_of_play_dictionaries.append(dict2)
+                                    dict1 = dict2.copy()
 
                     num += 1
                 #del mock_board[(x - num + 1, y)]
-        print("HI")
+            print('\n')
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         print(list_of_play_dictionaries)
