@@ -327,8 +327,9 @@ class Board:
         tile_already_scored_right = False
         tile_already_scored_down = False
         tile_already_scored_left = False
-        tiles_scored = 0
+        times_played_tile_scored = 0
         for coordinates_of_play, tile in played_on_turn.items():
+            times_played_tile_scored = 0
             x = coordinates_of_play[0]
             y = coordinates_of_play[1]
             num = 0
@@ -338,8 +339,11 @@ class Board:
                     already_scored_down = True
                     already_scored_up = True
                 num += 1
+                if num == 5:
+                    points += 6
             if (x, y + 1) in self.tiles_on_board and not tile_already_scored_up:
                 points += 1
+                times_played_tile_scored += 1
             num = 0
             while (x + num + 1, y) in self.tiles_on_board and not tile_already_scored_right:
                 points += 1
@@ -347,8 +351,11 @@ class Board:
                     already_scored_left = True
                     already_scored_right = True
                 num += 1
-            if (x + 1, y) in self.tiles_on_board and not tile_already_scored_left:
+                if num == 5:
+                    points += 6
+            if (x + 1, y) in self.tiles_on_board and not tile_already_scored_left and times_played_tile_scored < 2:
                 points += 1
+                times_played_tile_scored += 1
             num = 0
             while (x, y - num - 1) in self.tiles_on_board and not tile_already_scored_down:
                 points += 1
@@ -356,8 +363,11 @@ class Board:
                     already_scored_up = True
                     already_scored_down = True
                 num += 1
-            if (x, y - 1) in self.tiles_on_board and not tile_already_scored_down:
+                if num == 5:
+                    points += 6
+            if (x, y - 1) in self.tiles_on_board and not tile_already_scored_down and times_played_tile_scored < 2:
                 points += 1
+                times_played_tile_scored += 1
             num = 0
             while (x - num - 1, y) in self.tiles_on_board and not tile_already_scored_left:
                 points += 1
@@ -365,10 +375,12 @@ class Board:
                     already_scored_right = True
                     already_scored_left = True
                 num += 1
-            if (x - 1, y) in self.tiles_on_board and not tile_already_scored_right:
+                if num == 5:
+                    points += 6
+            if (x - 1, y) in self.tiles_on_board and not tile_already_scored_right and times_played_tile_scored < 2:
                 points += 1
+                times_played_tile_scored += 1
             num = 0
-            tiles_scored += 1
             tile_already_scored_up = already_scored_up
             tile_already_scored_right = already_scored_right
             tile_already_scored_down = already_scored_down

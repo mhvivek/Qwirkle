@@ -130,3 +130,59 @@ def test_score_play5():
     score = board1.score_play({(0, 0): Tile(Shape.SUN, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE),(0, 2):Tile(Shape.DIAMOND, Color.PURPLE)})
     print(score)
     assert score == 9
+
+def test_score_play6():
+    board1 = Board()
+    board1.add_to_board({(1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE), (0, 2):Tile(Shape.DIAMOND, Color.PURPLE), (0, 0):Tile(Shape.SUN, Color.PURPLE),  (1, 1):Tile(Shape.DIAMOND, Color.PURPLE), (1, 2): Tile(Shape.SUN, Color.PURPLE), (0, 3): Tile(Shape.SUN, Color.PURPLE), (1, 3): Tile(Shape.SQUARE, Color.PURPLE)})
+    score = board1.score_play({(0, 0): Tile(Shape.SUN, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE),(0, 2):Tile(Shape.DIAMOND, Color.PURPLE), (0, 3):Tile(Shape.SQUARE, Color.PURPLE)})
+    print(score)
+    assert score == 12
+
+def test_score_play7():
+    board1 = Board()
+    board1.add_to_board({(0, 1):Tile(Shape.CIRCLE, Color.PURPLE), (1, 2):Tile(Shape.CIRCLE, Color.GREEN), (0, 2):Tile(Shape.CIRCLE, Color.BLUE), (0, 0):Tile(Shape.CIRCLE, Color.RED)})
+    score = board1.score_play({(0, 2): Tile(Shape.CIRCLE, Color.BLUE), (1, 2):Tile(Shape.CIRCLE, Color.GREEN)})
+    print(score)
+    assert score == 5
+
+def test_score_play8():
+    board1 = Board()
+    board1.add_to_board({(0, 1):Tile(Shape.CLOVER, Color.PURPLE), (0, 2):Tile(Shape.DIAMOND, Color.PURPLE),  (1, 1):Tile(Shape.CLOVER, Color.ORANGE), (1, 2): Tile(Shape.DIAMOND, Color.ORANGE), (-1, 0): Tile(Shape.STAR, Color.BLUE), (-1, 1):Tile(Shape.CLOVER, Color.BLUE),(-1, 2):Tile(Shape.DIAMOND, Color.BLUE), (1, 0): Tile(Shape.SUN, Color.ORANGE)})
+    score = board1.score_play({(0, 1):Tile(Shape.CLOVER, Color.PURPLE)})
+    print(score)
+    assert score == 5
+
+def test_score_play9():
+    board1 = Board()
+    board1.add_to_board({(1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE), (0, 2):Tile(Shape.DIAMOND, Color.PURPLE), (0, 0):Tile(Shape.SUN, Color.PURPLE)})
+    score = board1.score_play({(0, 0): Tile(Shape.SUN, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE)})
+    print(score)
+    assert score == 5
+
+def test_score_play10():
+    board1 = Board()
+    board1.add_to_board({(1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (0, 1):Tile(Shape.STAR, Color.PURPLE), (0, 2):Tile(Shape.DIAMOND, Color.PURPLE), (0, 0):Tile(Shape.SUN, Color.PURPLE),  (1, 1):Tile(Shape.DIAMOND, Color.PURPLE), (1, 2): Tile(Shape.SUN, Color.PURPLE)})
+    score = board1.score_play({(0, 0): Tile(Shape.SUN, Color.PURPLE), (0, 2):Tile(Shape.DIAMOND, Color.PURPLE)})
+    print(score)
+    assert score == 7
+
+def test_score_play11():
+    board1 = Board()
+    board1.add_to_board({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (2, 0):Tile(Shape.STAR, Color.PURPLE), (3, 0):Tile(Shape.DIAMOND, Color.PURPLE), (4, 0):Tile(Shape.SUN, Color.PURPLE), (5, 0): Tile(Shape.CLOVER, Color.PURPLE)})
+    score = board1.score_play({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE)})
+    print(score)
+    assert score == 12
+
+def test_score_play12():
+    board1 = Board()
+    board1.add_to_board({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (2, 0):Tile(Shape.STAR, Color.PURPLE), (3, 0):Tile(Shape.DIAMOND, Color.PURPLE), (4, 0):Tile(Shape.SUN, Color.PURPLE), (5, 0): Tile(Shape.CLOVER, Color.PURPLE)})
+    score = board1.score_play({(0, 0): Tile(Shape.SQUARE, Color.PURPLE)})
+    print(score)
+    assert score == 12
+
+def test_score_play11():
+    board1 = Board()
+    board1.add_to_board({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (2, 0):Tile(Shape.STAR, Color.PURPLE), (3, 0):Tile(Shape.DIAMOND, Color.PURPLE), (4, 0):Tile(Shape.SUN, Color.PURPLE), (5, 0): Tile(Shape.CLOVER, Color.PURPLE), (2, 1): Tile(Shape.STAR, Color.GREEN)})
+    score = board1.score_play({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (2, 1): Tile(Shape.STAR, Color.GREEN)})
+    print(score)
+    assert score == 14
