@@ -21,6 +21,7 @@ class GameEngine:
         for player in self.player_list:
             first_tiles = self.bag.drawFromBag(6)
             player.hand.add_tiles(first_tiles)
+            player.strategy = 0
 
         rounds_played = 0
         game_over = False
