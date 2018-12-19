@@ -64,6 +64,21 @@ class Hand:
         print(self.circles)
         print(self.clovers)
 
+    def remove_from_hand(self, tiles_to_remove_dict):
+        tiles_to_remove_list = []
+        for coordinate, tile in tiles_to_remove_dict.items():
+            tiles_to_remove_list.append(tile)
+        # for tile in self.hand:
+        #         #     if tile in tiles_to_remove_list:
+        #         #         self.hand.remove(tile)
+        #         #         tiles_to_remove_list.remove(tile)
+        for tile in tiles_to_remove_list:
+            if tile in self.hand:
+                self.hand.remove(tile)
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ class Board:
     def add_to_board(self, tiles_to_play):
         for key, value in tiles_to_play.items():
             self.tiles_on_board[key] = value
-        print(self.tiles_on_board)
+        #print(self.tiles_on_board)
 
     def find_spots(self):
         return self.find_spots_any_board(self.tiles_on_board)
@@ -29,7 +29,7 @@ class Board:
             y = coordinates[1]
             if ((x, y)) in possible_plays:
                 possible_plays.remove((x, y))
-        print(possible_plays)
+        #print(possible_plays)
         return possible_plays
 
     def find_similar_tiles(self, tile):
@@ -60,7 +60,7 @@ class Board:
             num = 1
             plays_shortlist = set()
             if_statement_execution = False
-            print("I'm at " + str(x) + ' ' + str(y))
+            #print("I'm at " + str(x) + ' ' + str(y))
             if (x, y + 1) in board:
                 num = 1
                 tile = board[(x, y + 1)]
@@ -69,10 +69,10 @@ class Board:
 
                 while (x, y + num) in board:
                     plays_shortlist = set()
-                    print("Possible Tiles1: " + str(possible_tiles))
-                    print("Num " + str(num))
+                    #print("Possible Tiles1: " + str(possible_tiles))
+                    #print("Num " + str(num))
                     tile1 = board[(x, y + num)]
-                    print(board[(x, y + num)])
+                    #print(board[(x, y + num)])
                     if board[(x, y + num)].color == tile.color:
                         for tiles in possible_tiles:
                             if tiles.color == tile.color and tiles.shape != board[(x, y + num)].shape:
@@ -88,8 +88,8 @@ class Board:
                     possible_tiles = plays_shortlist
                     num += 1
 
-                print("\n")
-                print(*plays_shortlist, sep='\n')
+                #print("\n")
+                #print(*plays_shortlist, sep='\n')
                 if_statement_execution = True
 
             if (x + 1, y) in board:
@@ -99,8 +99,8 @@ class Board:
                     possible_tiles = self.find_similar_tiles(board[(x + 1, y)])
 
                 while (x + num, y) in board:
-                    print("Possible Tiles2: " + str(possible_tiles))
-                    print("Num " + str(num))
+                    #print("Possible Tiles2: " + str(possible_tiles))
+                    #print("Num " + str(num))
                     plays_shortlist = set()
                     if board[(x + num, y)].color == tile.color:
                         for tiles in possible_tiles:
@@ -115,8 +115,8 @@ class Board:
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
-                print("\n")
-                print(*plays_shortlist, sep='\n')
+                #print("\n")
+                #print(*plays_shortlist, sep='\n')
                 if_statement_execution = True
 
             if (x, y - 1) in board:
@@ -126,8 +126,8 @@ class Board:
                     possible_tiles = self.find_similar_tiles(board[(x, y - 1)])
 
                 while (x, y - num) in board:
-                    print("Possible Tiles3: " + str(possible_tiles))
-                    print("Num " + str(num))
+                    #print("Possible Tiles3: " + str(possible_tiles))
+                    #print("Num " + str(num))
                     plays_shortlist = set()
                     if board[(x, y - num)].color == tile.color:
                         for tiles in possible_tiles:
@@ -142,8 +142,8 @@ class Board:
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
-                print("\n")
-                print(*plays_shortlist, sep='\n')
+                #print("\n")
+                #print(*plays_shortlist, sep='\n')
                 if_statement_execution = True
 
             if (x - 1, y) in board:
@@ -153,8 +153,8 @@ class Board:
                     possible_tiles = self.find_similar_tiles(board[(x - 1, y)])
 
                 while (x - num, y) in board:
-                    print("Possible Tiles4: " + str(possible_tiles))
-                    print("Num " + str(num))
+                    #print("Possible Tiles4: " + str(possible_tiles))
+                    #print("Num " + str(num))
                     plays_shortlist = set()
                     if board[(x - num, y)].color == tile.color:
                         for tiles in possible_tiles:
@@ -169,12 +169,12 @@ class Board:
                                 #print(tiles)
                     possible_tiles = plays_shortlist
                     num += 1
-                print("\n")
-                print(*plays_shortlist, sep='\n')
+                #print("\n")
+                #print(*plays_shortlist, sep='\n')
                 if_statement_execution = True
 
             plays_dict[spot] = plays_shortlist
-            print(plays_dict)
+            #print(plays_dict)
         return plays_dict
 
     def find_plays_from_hand(self, all_plays, in_hand):
@@ -183,15 +183,15 @@ class Board:
             if set.intersection(legal_tiles, in_hand):
                 plays_from_hand[coordinates] = set.intersection(legal_tiles, in_hand)
 
-        print(plays_from_hand)
+        #print(plays_from_hand)
         return plays_from_hand
 
     def multiple_tile_plays(self, plays_using_hand, tiles_on_board, in_hand):
         list_of_play_dictionaries = []
         num = 0
         for coordinates, tiles in plays_using_hand.items():
-            print(coordinates)
-            print(tiles)
+            #print(coordinates)
+            #print(tiles)
             x = coordinates[0]
             y = coordinates[1]
 
@@ -312,9 +312,9 @@ class Board:
 
                     num += 1
                 #del mock_board[(x - num + 1, y)]
-            print('\n')
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        print(list_of_play_dictionaries)
+            #print('\n')
+            #print("@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        #print(list_of_play_dictionaries)
         return list_of_play_dictionaries
 
     def score_play(self, played_on_turn):

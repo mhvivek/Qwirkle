@@ -20,3 +20,9 @@ def test_draw():
     bag3.drawFromBag(3)
     assert len(bag3.tile_list) == 105
 
+def test_end_game_draw():
+    bag1 = Bag()
+    drawn_tiles = bag1.drawFromBag(2)
+    assert len(drawn_tiles) == 0
+
+

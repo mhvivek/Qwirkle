@@ -4,7 +4,9 @@ from color import Color
 from random import shuffle
 
 class Bag:
-    tile_list = []
+
+    def __init__(self):
+        self.tile_list = []
 
     def createTiles(self):
         for copy_tiles in range(1, 4):
@@ -13,12 +15,12 @@ class Bag:
                     tile2 = Tile(shape, color)
                     self.tile_list.append(tile2)
                     #print(tile2)
-        print("\n")
+        #print("\n")
 
     def shuffleTiles(self):
         shuffle(self.tile_list)
         #print(*self.tile_list, sep='\n')
-        print("\n")
+        #print("\n")
 
     def drawFromBag(self, number_to_remove):
         drawn_tiles = self.tile_list[0:number_to_remove]
