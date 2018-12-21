@@ -1,5 +1,7 @@
 from hand import *
 import random
+import copy
+from Board import *
 
 class Player:
 
@@ -30,7 +32,10 @@ class Player:
             list_plays = board.multiple_tile_plays(plays_hand, board.tiles_on_board, self.hand.hand)
             if self.strategy == 0:
                 for play in list_plays:
-                    mock_score = board.score_play(play)
+                    mock_board = Board()
+                    mock_board.tiles_on_board = board.tiles_on_board.copy()
+                    mock_board.add_to_board(play)
+                    mock_score = mock_board.score_play(play)
                     scored_mock_plays[mock_score] = play
                 for score, may_play in scored_mock_plays.items():
                     if not multiple_times:
@@ -40,5 +45,10 @@ class Player:
                         if score > high_score:
                             high_score = score
                 return scored_mock_plays[high_score]
+            if self.strategy > 0:
+                if len(list_plays) > 0:
+                    return random.choice(list_plays)
+                else:
+                    return {}
         else:
             return {(0, 0): self.hand.hand[0]}

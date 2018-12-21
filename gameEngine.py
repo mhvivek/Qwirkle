@@ -21,7 +21,11 @@ class GameEngine:
         for player in self.player_list:
             first_tiles = self.bag.drawFromBag(6)
             player.hand.add_tiles(first_tiles)
-            player.strategy = 0
+
+        self.player_list[0].strategy = 0
+        self.player_list[1].strategy = 0
+        self.player_list[2].strategy = 0
+        self.player_list[3].strategy = 0
 
         rounds_played = 0
         game_over = False
@@ -33,6 +37,9 @@ class GameEngine:
                     player.hand.remove_from_hand(play_dict)
                     print("Tiles in hand: " + str(len(player.hand.hand)))
                     self.board.add_to_board(play_dict)
+                    print("Play: " + str(play_dict))
+                    for place, tile in play_dict.items():
+                        print(tile.color, tile.shape)
                     points_this_turn = self.board.score_play(play_dict)
                     player.total_points += points_this_turn
                     tiles_to_replenish_hand = self.bag.drawFromBag(len(play_dict))
