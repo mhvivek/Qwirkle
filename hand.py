@@ -4,18 +4,19 @@ from shape import Shape
 class Hand:
     def __init__(self):
         self.hand = []
-        self.reds = []
-        self.yellows = []
-        self.greens = []
-        self.purples = []
-        self.oranges = []
-        self.blues = []
-        self.circles = []
-        self.squares = []
-        self.diamonds = []
-        self.clovers = []
-        self.stars = []
-        self.suns = []
+        self.reds = set()
+        self.yellows = set()
+        self.greens = set()
+        self.purples = set()
+        self.oranges = set()
+        self.blues = set()
+        self.circles = set()
+        self.squares = set()
+        self.diamonds = set()
+        self.clovers = set()
+        self.stars = set()
+        self.suns = set()
+        self.list_possible_combinations = []
 
 
     def add_tiles(self, tiles):
@@ -25,44 +26,46 @@ class Hand:
     def convert_hand_to_set(self):
         return set(self.hand)
 
-    def find_combinations(self):
+    def find_first_play(self):
+        biggest_play = []
         for tile in self.hand:
             if tile.color == Color.RED:
-                self.reds.append(tile)
+                self.reds.add(tile)
             if tile.color == Color.YELLOW:
-                self.yellows.append(tile)
+                self.yellows.add(tile)
             if tile.color == Color.GREEN:
-                self.greens.append(tile)
+                self.greens.add(tile)
             if tile.color == Color.PURPLE:
-                self.purples.append(tile)
+                self.purples.add(tile)
             if tile.color == Color.ORANGE:
-                self.oranges.append(tile)
+                self.oranges.add(tile)
             if tile.color == Color.BLUE:
-                self.blues.append(tile)
+                self.blues.add(tile)
             if tile.shape == Shape.CLOVER:
-                self.clovers.append(tile)
+                self.clovers.add(tile)
             if tile.shape == Shape.CIRCLE:
-                self.circles.append(tile)
+                self.circles.add(tile)
             if tile.shape == Shape.SQUARE:
-                self.squares.append(tile)
+                self.squares.add(tile)
             if tile.shape == Shape.DIAMOND:
-                self.diamonds.append(tile)
+                self.diamonds.add(tile)
             if tile.shape == Shape.STAR:
-                self.stars.append(tile)
+                self.stars.add(tile)
             if tile.shape == Shape.SUN:
-                self.suns.append(tile)
-        print(self.reds)
-        print(self.yellows)
-        print(self.oranges)
-        print(self.blues)
-        print(self.greens)
-        print(self.purples)
-        print(self.diamonds)
-        print(self.suns)
-        print(self.stars)
-        print(self.squares)
-        print(self.circles)
-        print(self.clovers)
+                self.suns.add(tile)
+        self.list_possible_combinations = [self.reds, self.yellows, self.blues, self.greens, self.purples, self.oranges,
+                                           self.clovers, self.squares, self.circles, self.diamonds, self.stars, self.suns]
+        for possibility in self.list_possible_combinations:
+            if len(possibility) > len(biggest_play):
+                biggest_play = possibility
+
+        first_play = {}
+        num = 0
+        for tile in biggest_play:
+            first_play[(num, 0)] = tile
+            num += 1
+        return first_play
+
 
     def remove_from_hand(self, tiles_to_remove_dict):
         tiles_to_remove_list = []
