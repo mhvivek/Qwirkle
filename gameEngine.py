@@ -51,7 +51,7 @@ class GameEngine:
                         player.hand.add_tiles(tiles_to_replenish_hand)
                         print("Tiles in hand: " + str(len(player.hand.hand)))
                     else:
-                        play_dict = player.find_where_to_play(self.board)
+                        play_dict = player.find_where_to_play(self.board, self.bag.tile_list)
                         if len(play_dict) > 0:
                             print("Tiles in hand: " + str(len(player.hand.hand)))
                             player.hand.remove_from_hand(play_dict)
@@ -60,7 +60,7 @@ class GameEngine:
                             print("Play: " + str(play_dict))
                             for place, tile in play_dict.items():
                                 print(tile.color, tile.shape)
-                            points_this_turn = self.board.score_play(play_dict)
+                            points_this_turn = self.board.score_play(play_dict, False)
                             player.total_points += points_this_turn
                             tiles_to_replenish_hand = self.bag.drawFromBag(len(play_dict))
                             player.hand.add_tiles(tiles_to_replenish_hand)

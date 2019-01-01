@@ -193,3 +193,17 @@ def test_multiple_tile_play():
 #     score = board1.score_play({(0, 0): Tile(Shape.SUN, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE)})
 #     print(score)
 #     assert score == 4
+
+def test_score_play11():
+    board1 = Board()
+    board1.add_to_board({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (0, 1):Tile(Shape.CIRCLE, Color.PURPLE), (0, 2):Tile(Shape.STAR, Color.PURPLE), (0, 3):Tile(Shape.DIAMOND, Color.PURPLE), (0, 4):Tile(Shape.SUN, Color.PURPLE), (0, 5): Tile(Shape.CLOVER, Color.PURPLE)})
+    score = board1.score_play({(0, 1):Tile(Shape.CIRCLE, Color.PURPLE)}, False)
+    print(score)
+    assert 12 == score
+
+def test_score_play11():
+    board1 = Board()
+    board1.add_to_board({(0, 0): Tile(Shape.SQUARE, Color.PURPLE), (1, 0):Tile(Shape.CIRCLE, Color.PURPLE), (2, 0):Tile(Shape.STAR, Color.PURPLE), (3, 0):Tile(Shape.DIAMOND, Color.PURPLE), (4, 0):Tile(Shape.SUN, Color.PURPLE), (5, 0): Tile(Shape.CLOVER, Color.PURPLE)})
+    score = board1.score_play({(1, 0):Tile(Shape.CIRCLE, Color.PURPLE)}, False)
+    print(score)
+    assert score == 12

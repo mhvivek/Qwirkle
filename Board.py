@@ -317,7 +317,7 @@ class Board:
         #print(list_of_play_dictionaries)
         return list_of_play_dictionaries
 
-    def score_play(self, played_on_turn):
+    def score_play(self, played_on_turn, no_fives):
         points = 0
         already_scored_up = False
         already_scored_right = False
@@ -333,54 +333,62 @@ class Board:
             times_played_tile_scored_row = 0
             x = coordinates_of_play[0]
             y = coordinates_of_play[1]
-            num = 0
-            while (x, y + num + 1) in self.tiles_on_board and not tile_already_scored_up:
+            num_up = 0
+            while (x, y + num_up + 1) in self.tiles_on_board and not tile_already_scored_up:
                 points += 1
-                if (x, y + num + 1) in played_on_turn:
+                if (x, y + num_up + 1) in played_on_turn:
                     already_scored_down = True
                     already_scored_up = True
-                num += 1
-                if num == 5:
+                num_up += 1
+                if num_up == 5:
                     points += 6
             if (x, y + 1) in self.tiles_on_board and not tile_already_scored_up:
                 points += 1
                 times_played_tile_scored_column += 1
-            num = 0
-            while (x + num + 1, y) in self.tiles_on_board and not tile_already_scored_right:
+            if no_fives and num_up == 4:
+                points = -30
+            num_right = 0
+            while (x + num_right + 1, y) in self.tiles_on_board and not tile_already_scored_right:
                 points += 1
-                if (x + num + 1, y) in played_on_turn:
+                if (x + num_right + 1, y) in played_on_turn:
                     already_scored_left = True
                     already_scored_right = True
-                num += 1
-                if num == 5:
+                num_right += 1
+                if num_right == 5:
                     points += 6
             if (x + 1, y) in self.tiles_on_board and not tile_already_scored_left and times_played_tile_scored_row < 1:
                 points += 1
                 times_played_tile_scored_row += 1
-            num = 0
-            while (x, y - num - 1) in self.tiles_on_board and not tile_already_scored_down:
+            if no_fives and num_right == 4:
+                points = -30
+            num_down = 0
+            while (x, y - num_down - 1) in self.tiles_on_board and not tile_already_scored_down:
                 points += 1
-                if (x, y - num - 1) in played_on_turn:
+                if (x, y - num_down - 1) in played_on_turn:
                     already_scored_up = True
                     already_scored_down = True
-                num += 1
-                if num == 5:
+                num_down += 1
+                if num_down + num_up == 5:
                     points += 6
             if (x, y - 1) in self.tiles_on_board and not tile_already_scored_down and times_played_tile_scored_column < 1:
                 points += 1
                 times_played_tile_scored_column += 1
-            num = 0
-            while (x - num - 1, y) in self.tiles_on_board and not tile_already_scored_left:
+            if no_fives and num_up + num_down == 4:
+                points = -30
+            num_left = 0
+            while (x - num_left - 1, y) in self.tiles_on_board and not tile_already_scored_left:
                 points += 1
-                if (x - num - 1, y) in played_on_turn:
+                if (x - num_left - 1, y) in played_on_turn:
                     already_scored_right = True
                     already_scored_left = True
-                num += 1
-                if num == 5:
+                num_left += 1
+                if num_left + num_right == 5:
                     points += 6
             if (x - 1, y) in self.tiles_on_board and not tile_already_scored_right and times_played_tile_scored_row < 1:
                 points += 1
                 times_played_tile_scored_row += 1
+            if no_fives and num_right + num_left == 4:
+                points = -30
             num = 0
             tile_already_scored_up = already_scored_up
             tile_already_scored_right = already_scored_right

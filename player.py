@@ -22,7 +22,7 @@ class Player:
     #     else:
     #         return {(0, 0): self.hand.hand[0]}
 
-    def find_where_to_play(self, board):
+    def find_where_to_play(self, board, bag_tiles):
         scored_mock_plays = {}
         high_score = 0
         multiple_times = False
@@ -31,12 +31,13 @@ class Player:
             plays = board.find_legal_plays()
             plays_hand = board.find_plays_from_hand(plays, self.hand.hand)
             list_plays = board.multiple_tile_plays(plays_hand, board.tiles_on_board, self.hand.hand)
+
             if self.strategy == 0:
                 for play in list_plays:
                     mock_board = Board()
                     mock_board.tiles_on_board = board.tiles_on_board.copy()
                     mock_board.add_to_board(play)
-                    mock_score = mock_board.score_play(play)
+                    mock_score = mock_board.score_play(play, False)
                     scored_mock_plays[mock_score] = play
                 for score, may_play in scored_mock_plays.items():
                     if not multiple_times:
@@ -46,12 +47,13 @@ class Player:
                         if score > high_score:
                             high_score = score
                 return scored_mock_plays[high_score]
+
             if self.strategy == 1:
                 for play in list_plays:
                     mock_board = Board()
                     mock_board.tiles_on_board = board.tiles_on_board.copy()
                     mock_board.add_to_board(play)
-                    mock_score = mock_board.score_play(play)
+                    mock_score = mock_board.score_play(play, False)
                     scored_mock_plays[mock_score] = play
                 for score, may_play in scored_mock_plays.items():
                     if not multiple_times:
@@ -60,13 +62,15 @@ class Player:
                     else:
                         if score > high_score:
                             high_score = score
-                if high_score < 6:
+                if high_score < 6 and len(bag_tiles) > 6:
                     scored_mock_plays[high_score] = {}
                 return scored_mock_plays[high_score]
+
             if self.strategy == 2:
                 most_tiles_to_play = 0
                 to_play = {}
                 num = 0
+                high_score = 0
                 for play in list_plays:
                     if not multiple_times:
                         most_tiles_to_play = len(play)
@@ -87,7 +91,7 @@ class Player:
                         mock_board = Board()
                         mock_board.tiles_on_board = board.tiles_on_board.copy()
                         mock_board.add_to_board(play)
-                        mock_score = mock_board.score_play(play)
+                        mock_score = mock_board.score_play(play, False)
                         scored_mock_plays[mock_score] = play
                     for score, may_play in scored_mock_plays.items():
                         if not multiple_times:
@@ -97,7 +101,23 @@ class Player:
                             if score > high_score:
                                 high_score = score
                 return scored_mock_plays[high_score]
+
             if self.strategy == 3:
+                for play in list_plays:
+                    mock_board = Board()
+                    mock_board.tiles_on_board = board.tiles_on_board.copy()
+                    mock_board.add_to_board(play)
+                    mock_score = mock_board.score_play(play, True)
+                    scored_mock_plays[mock_score] = play
+                for score, may_play in scored_mock_plays.items():
+                    if not multiple_times:
+                        high_score = score
+                        multiple_times = True
+                    else:
+                        if score > high_score:
+                            high_score = score
+                return scored_mock_plays[high_score]
+            if self.strategy == 4:
                 if len(list_plays) > 0:
                     return random.choice(list_plays)
                 else:
