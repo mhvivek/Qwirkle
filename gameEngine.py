@@ -14,7 +14,7 @@ class GameEngine:
         self.bag.shuffleTiles()
         self.board = Board()
         self.player_list = []
-        for strategy_num in range(1, 5):
+        for strategy_num in range(1, 3):
             self.player_list.append(Player(strategy_num))
 
     def playGame(self):
@@ -22,10 +22,10 @@ class GameEngine:
             first_tiles = self.bag.drawFromBag(6)
             player.hand.add_tiles(first_tiles)
 
-        self.player_list[0].strategy = 0
+        self.player_list[0].strategy = 2
         self.player_list[1].strategy = 1
-        self.player_list[2].strategy = 2
-        self.player_list[3].strategy = 3
+        #self.player_list[2].strategy = 2
+        #self.player_list[3].strategy = 3
 
         rounds_played = 0
         game_over = False
@@ -66,18 +66,22 @@ class GameEngine:
                             player.hand.add_tiles(tiles_to_replenish_hand)
                             print("Tiles in hand: " + str(len(player.hand.hand)))
                         else:
-                            print("Trade-in ")
-                            num = 0
-                            tiles_to_remove = {}
-                            points_this_turn = 0
-                            for tile in player.hand.hand:
-                                tiles_to_remove[(0, num)] = tile
-                                self.bag.tile_list.append(tile)
-                                num += 1
-                            player.hand.remove_from_hand(tiles_to_remove)
-                            self.bag.shuffleTiles()
-                            tiles_to_replenish_hand = self.bag.drawFromBag(6)
-                            player.hand.add_tiles(tiles_to_replenish_hand)
+                            if len(self.bag.tile_list) > 5:
+                                print("Trade-in ")
+                                num = 0
+                                tiles_to_remove = {}
+                                points_this_turn = 0
+                                for tile in player.hand.hand:
+                                    tiles_to_remove[(0, num)] = tile
+                                    self.bag.tile_list.append(tile)
+                                    num += 1
+                                player.hand.remove_from_hand(tiles_to_remove)
+                                self.bag.shuffleTiles()
+                                tiles_to_replenish_hand = self.bag.drawFromBag(6)
+                                player.hand.add_tiles(tiles_to_replenish_hand)
+                            else:
+                                points_this_turn = 0
+                                player.total_points += 0
 
                     if len(player.hand.hand) == 0:
                         player.total_points += 6
