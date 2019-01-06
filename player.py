@@ -85,7 +85,7 @@ class Player:
                                 to_play[most_tiles_to_play] = play
                             if len(play) == most_tiles_to_play:
                                 to_play[most_tiles_to_play - num] = play
-                        scored_mock_plays[high_score] = to_play
+                        scored_mock_plays[high_score] = to_play[most_tiles_to_play]
                         num += 1
                     if len(to_play) > 1:
                         scored_mock_plays = {}

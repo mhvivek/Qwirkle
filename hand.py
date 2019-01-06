@@ -70,6 +70,8 @@ class Hand:
     def remove_from_hand(self, tiles_to_remove_dict):
         tiles_to_remove_list = []
         for coordinate, tile in tiles_to_remove_dict.items():
+            if isinstance(tile, dict):
+                print("^_^")
             tiles_to_remove_list.append(tile)
         # for tile in self.hand:
         #         #     if tile in tiles_to_remove_list:
