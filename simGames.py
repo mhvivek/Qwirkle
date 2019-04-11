@@ -2,11 +2,11 @@ from gameEngine import *
 import time
 start = time.time()
 
-with open('qwirkle_sim_data7.csv', 'a') as csvfile:
+with open('qwirkle_sim_data8.csv', 'a') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     game_number = 0
 
-    for sim in range(1, 81):
+    for sim in range(1, 2):
         strategy_list = [0, 1, 2, 3]
         for strategy in strategy_list:
             reduced_strategy_list = strategy_list.copy()

@@ -7,7 +7,7 @@ from bag import Bag
 from player import *
 import csv
 
-class GameEngine:
+class twoPlayerGameEngine:
 
     def __init__(self):
         self.bag = Bag()
@@ -16,22 +16,24 @@ class GameEngine:
         self.board = Board()
         self.player_list = []
         self.strategy_to_player = {}
-        for strategy_num in range(1, 5):
+        for strategy_num in range(1, 3):
              self.player_list.append(Player(strategy_num))
 
-    def playGame(self, strategy_list):
+    def playGame(self, strategy_list, order):
+        first_player = strategy_list[0]
+        second_player = strategy_list[1]
         for player in self.player_list:
             first_tiles = self.bag.drawFromBag(6)
             player.hand.add_tiles(first_tiles)
 
         self.player_list[0].strategy = strategy_list[0]
         self.player_list[1].strategy = strategy_list[1]
-        self.player_list[2].strategy = strategy_list[2]
-        self.player_list[3].strategy = strategy_list[3]
+        #self.player_list[2].strategy = strategy_list[2]
+        #self.player_list[3].strategy = strategy_list[3]
         self.strategy_to_player[strategy_list[0]] = self.player_list[0]
         self.strategy_to_player[strategy_list[1]] = self.player_list[1]
-        self.strategy_to_player[strategy_list[2]] = self.player_list[2]
-        self.strategy_to_player[strategy_list[3]] = self.player_list[3]
+        #self.strategy_to_player[strategy_list[2]] = self.player_list[2]
+        #self.strategy_to_player[strategy_list[3]] = self.player_list[3]
 
         rounds_played = 0
         game_over = False
@@ -92,7 +94,10 @@ class GameEngine:
                     if len(player.hand.hand) == 0:
                         player.total_points += 6
                         game_over = True
+                    if rounds_played > 50:
+                        game_over = True
                     print(player.strategy, points_this_turn)
+
 
             print("Round: " + str(rounds_played))
             rounds_played += 1
@@ -106,12 +111,16 @@ class GameEngine:
             if player.total_points > winning_score:
                     winning_score = player.total_points
 
-        game_data = [rounds_played, self.strategy_to_player[0].total_points, self.strategy_to_player[1].total_points,
-                     self.strategy_to_player[2].total_points, self.strategy_to_player[3].total_points,
-                     strategy_list.index(0) + 1, strategy_list.index(1) + 1, strategy_list.index(2) + 1, strategy_list.index(3) + 1,
-                     int(self.strategy_to_player[0].total_points == winning_score), int(self.strategy_to_player[1].total_points == winning_score),
-                     int(self.strategy_to_player[2].total_points == winning_score), int(self.strategy_to_player[3].total_points == winning_score)]
-
+        if order == 1:
+            game_data = [rounds_played, self.strategy_to_player[first_player].total_points, self.strategy_to_player[second_player].total_points,
+                         strategy_list.index(first_player) + 1, strategy_list.index(second_player) + 1,
+                         int(self.strategy_to_player[first_player].total_points == winning_score), int(self.strategy_to_player[second_player].total_points == winning_score)]
+        if order == 2:
+            game_data = [rounds_played, self.strategy_to_player[second_player].total_points,
+                         self.strategy_to_player[first_player].total_points,
+                         strategy_list.index(second_player) + 1, strategy_list.index(first_player) + 1,
+                         int(self.strategy_to_player[second_player].total_points == winning_score),
+                         int(self.strategy_to_player[first_player].total_points == winning_score)]
         # game_data = [rounds_played, self.strategy_to_player[0].total_points, self.strategy_to_player[1].total_points,
         #              self.strategy_to_player[2].total_points, self.strategy_to_player[3].total_points,
         #              strategy_list.index(0) + 1, strategy_list.index(1) + 1, strategy_list.index(2) + 1,
